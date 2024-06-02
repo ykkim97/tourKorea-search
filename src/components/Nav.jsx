@@ -50,7 +50,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -232,8 +231,6 @@ export default function Nav({
               <MenuItem value="경남">경남</MenuItem>
               <MenuItem value="경북">경북</MenuItem>
               <MenuItem value="세종">세종</MenuItem>
-              
-              {/* 다른 지역들을 추가하세요 */}
             </Select>
           </FormControl>
           <Box sx={{ flexGrow: 1 }} />

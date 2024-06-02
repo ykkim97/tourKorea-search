@@ -8,11 +8,7 @@ import Home from './Home';
 function App() {
   const [searchRegion, setSearchRegion] = useState([]);
   return (
-    <div>
-      <Nav 
-        searchRegion={searchRegion}
-        setSearchRegion={setSearchRegion}
-      />
+    <div style={{ display : 'flex', flexDirection : "column" }}>
       <Home 
         searchRegion={searchRegion}
         setSearchRegion={setSearchRegion}

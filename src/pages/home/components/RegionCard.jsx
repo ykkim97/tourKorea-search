@@ -16,6 +16,7 @@ const RegionCard = ({
                     sx={{ height: 140 }}
                     image={item.firstimage}
                     title="green iguana"
+                    loading="lazy"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h6" component="div">
