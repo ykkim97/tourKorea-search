@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'SUIT', sans-serif;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: normal;
+  src: url("./fonts/SUIT-Regular.ttf") format("truetype");
+}
