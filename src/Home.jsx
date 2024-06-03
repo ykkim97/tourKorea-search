@@ -10,6 +10,9 @@ import Nav from "./components/Nav";
 import { AppBar, Box, CssBaseline, Divider, ListItemButton, ListItemIcon, Toolbar, Typography } from "@mui/material";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import HomePage from "./pages/home/HomePage";
+import { Route, Routes } from 'react-router-dom';
+import DetailPage from "./pages/home/DetailPage";
 
 const menuItems = ['서울', '강원', '전북', '전남', '제주'];
 const drawerWidth = 240;
@@ -18,9 +21,11 @@ export default function Home ({
     searchRegion,
     setSearchRegion
 }) {
+    const [drawerClicked, setDrawerClikded] = useState(false);
+
     const handleMenuClick = async (region) => {
         try {
-            const response = await axios.get(`http://localhost:7516/search`, {
+            const response = await axios.get(`http://localhost:7516/api/search`, {
                 params: { region }
             });
             setSearchRegion(response.data);
@@ -37,20 +42,22 @@ export default function Home ({
                     <Nav
                         searchRegion={searchRegion}
                         setSearchRegion={setSearchRegion}
+                        setDrawerClikded={setDrawerClikded}
                     />
-                </AppBar>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                    }}
-                >
+                </ AppBar>
+                {drawerClicked ? null : (
+                    <Drawer
+                        variant="permanent"
+                        sx={{
+                            width: drawerWidth,
+                            flexShrink: 0,
+                            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+                        }}
+                    >
                     <Toolbar />
                     <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                        {['검색', '지도', '행사', 'Drafts'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                             <ListItemIcon>
@@ -76,18 +83,30 @@ export default function Home ({
                     </List>
                     </Box>
                 </Drawer>
+                )}
+
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <Toolbar />
                     <Grid container spacing={2}>
                         {/* 반복되는 Grid 아이템을 렌더링 */}
-                        {searchRegion && searchRegion.map((item) => (
-                            <Grid item key={item.contentid} xs={12} sm={6} md={4} lg={3}>
-                                <RegionCard item={item} />
-                            </Grid>
-                        ))}
+                        <Routes>
+                            <Route 
+                                path="/" 
+                                element={
+                                    <HomePage searchRegion={searchRegion} />
+                                } 
+                            />
+
+                            <Route 
+                                path='/detail/:id' 
+                                element={
+                                    <DetailPage searchRegion={searchRegion} />
+                                } 
+                            />
+                        </Routes>
                     </Grid>
                 </Box>
-                </Box>
+            </Box>
         </>
     )
 }

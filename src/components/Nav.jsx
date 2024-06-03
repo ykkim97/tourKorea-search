@@ -16,8 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Select, FormControl, InputLabel } from '@mui/material';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
 
 const Search = styled('div')(({ theme }) => ({
@@ -61,12 +60,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Nav({
   searchRegion,
-  setSearchRegion
+  setSearchRegion,
+  setDrawerClikded
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [region, setRegion] = useState('서울');
-  
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -91,10 +90,14 @@ export default function Nav({
   const handleRegionChange = (event) => {
     setRegion(event.target.value);
   };
+  
+  const hamburgerBtnClick = () => {
+    setDrawerClikded(prev => !prev)
+  }
 
   useEffect(() => {
     const fetchTourData = async () => {
-      const response = await axios.get('http://localhost:7516/search', {
+      const response = await axios.get('http://localhost:7516/api/search', {
         params : { keyword : region }
       });
       setSearchRegion(response.data);
@@ -190,6 +193,7 @@ export default function Nav({
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={hamburgerBtnClick}
           >
             <MenuIcon />
           </IconButton>
@@ -206,8 +210,9 @@ export default function Nav({
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="검색"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => setRegion(e.target.value)}
             />
           </Search>
           <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>

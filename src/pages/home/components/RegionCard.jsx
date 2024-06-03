@@ -5,13 +5,23 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from "react-router-dom";
 
 const RegionCard = ({
     item
 }) => {
+    const navigate = useNavigate();
+
+    const handleDetailPage = () => {
+        navigate(`/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}`)
+    }
+
     return (
         <>
-            <Card sx={{ maxWidth: 345, display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Card 
+                sx={{ maxWidth: 345, display: 'flex', flexDirection: 'column', height: '100%', cursor: 'pointer' }}
+                onClick={handleDetailPage}
+            >
                 <CardMedia
                     sx={{ height: 140 }}
                     image={item.firstimage}
