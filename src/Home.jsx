@@ -16,7 +16,6 @@ import DetailPage from "./pages/home/DetailPage";
 import Festival from "./pages/Festival/Festival";
 import FestivalDetailPage from "./pages/Festival/FestivalDetailPage";
 
-const menuItems = ['서울', '강원', '전북', '전남', '제주'];
 const drawerWidth = 240;
 
 export default function Home ({
@@ -91,35 +90,22 @@ export default function Home ({
                         <Routes>
                             <Route 
                                 path="/" 
-                                element={
-                                    <HomePage  
-                                        totalLength={totalLength} 
-                                    />
-                                } 
+                                element={ <HomePage totalLength={totalLength} /> } 
                             />
 
                             <Route 
                                 path='/detail/:id' 
-                                element={
-                                    <DetailPage />
-                                } 
+                                element={ <DetailPage /> } 
                             />
 
                             <Route 
                                 path='/festival' 
-                                element={
-                                    <Festival 
-                                        totalLength={totalLength} 
-                                        // region={region} 
-                                    />
-                                } 
+                                element={ <Festival totalLength={totalLength} /> } 
                             />
 
                             <Route 
                                 path='/festival/detail/:id' 
-                                element={
-                                    <FestivalDetailPage />
-                                } 
+                                element={ <FestivalDetailPage /> } 
                             />
                         </Routes>
                     </Grid>

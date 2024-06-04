@@ -45,10 +45,6 @@ const FestivalDetailPage = () => {
         setMapLv(Number(selectedRegion[0]?.mlevel));
     }, [selectedRegion])
 
-    useEffect(() => {
-        console.log(selectedRegion, "selectedRegion")
-    }, [selectedRegion])
-
     return (
         <>
             {isloading ? (
