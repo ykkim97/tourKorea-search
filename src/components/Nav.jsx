@@ -19,6 +19,7 @@ import { Select, FormControl, InputLabel } from '@mui/material';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import useSearch from '../store/search/useSearch';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,17 +60,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const regionArray = ['서울','대전','대구','부산','울산','제주','강원','전북','전남','경남','경북','세종'];
+
 export default function Nav({
-  // region,
-  // setRegion,
-  // searchRegion,
-  // setSearchRegion,
   setDrawerClikded,
   totalLength,
   setTotalLength,
 }) {
-  const { searchRegion,setSearchRegion, region, setRegion } = useSearch();
+  const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -101,12 +101,16 @@ export default function Nav({
     setDrawerClikded(prev => !prev)
   }
 
+  const handleHomeNavigation = () => {
+    navigate('/');
+  }
+
   useEffect(() => {
     const fetchTourData = async () => {
       const response = await axios.get('http://localhost:7516/api/search', {
         params : { keyword : region }
       });
-      console.log(response.data, "<===")
+      // console.log(response.data, "<===")
       setSearchRegion(response.data.result);
       setTotalLength(response.data.totalCount);
     }
@@ -205,7 +209,8 @@ export default function Nav({
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block', cursor: 'pointer' } }}
+            onClick={handleHomeNavigation}
           >
             여행지검색
           </Typography>
@@ -220,7 +225,7 @@ export default function Nav({
             />
           </Search>
           <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="region-select-label" color='success'>지역 선택</InputLabel>
+            <InputLabel id="region-select-label" color='success' sx={{ color : "#fff" }}>지역 선택</InputLabel>
             <Select
               labelId="region-select-label"
               id="region-select"
@@ -228,19 +233,11 @@ export default function Nav({
               onChange={handleRegionChange}
               label="지역 선택"
               color='success'
+              sx={{ color : "#fff" }}
             >
-              <MenuItem value="서울">서울</MenuItem>
-              <MenuItem value="대전">대전</MenuItem>
-              <MenuItem value="대구">대구</MenuItem>
-              <MenuItem value="부산">부산</MenuItem>
-              <MenuItem value="울산">울산</MenuItem>
-              <MenuItem value="제주">제주</MenuItem>
-              <MenuItem value="강원">강원</MenuItem>
-              <MenuItem value="전북">전북</MenuItem>
-              <MenuItem value="전남">전남</MenuItem>
-              <MenuItem value="경남">경남</MenuItem>
-              <MenuItem value="경북">경북</MenuItem>
-              <MenuItem value="세종">세종</MenuItem>
+              {regionArray?.map((item) => (
+                <MenuItem value={item} onClick={() => navigate('/')}>{item}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <Box sx={{ flexGrow: 1 }} />

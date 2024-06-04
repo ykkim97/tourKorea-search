@@ -7,7 +7,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Nav from "./components/Nav";
-import { AppBar, Box, CssBaseline, Divider, ListItemButton, ListItemIcon, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, CssBaseline, Divider, ListItemButton, ListItemIcon, Slide, Toolbar, Typography } from "@mui/material";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomePage from "./pages/home/HomePage";
@@ -37,51 +37,53 @@ export default function Home ({
                     />
                 </ AppBar>
                 {drawerClicked ? null : (
-                    <Drawer
-                        variant="permanent"
-                        sx={{
-                            width: drawerWidth,
-                            flexShrink: 0,
-                            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                        }}
-                    >
-                    <Toolbar />
-                    <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                        {['여행지', '행사', '지도', '반려동물동반'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                {text === '여행지' ? (
-                                    <ListItemText primary={text} onClick={() => naviagate(`/`)} />
-                                ) : (
-                                    text === '행사' ? (
-                                        <ListItemText primary={text} onClick={() => naviagate(`/festival`)} />
-                                    ) : (
+                    <Slide direction="right" in={!drawerClicked} mountOnEnter unmountOnExit>
+                        <Drawer
+                            variant="permanent"
+                            sx={{
+                                width: drawerWidth,
+                                flexShrink: 0,
+                                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+                            }}
+                        >
+                            <Toolbar />
+                            <Box sx={{ overflow: 'auto' }}>
+                                <List>
+                                    {['여행지', '행사', '지도', '반려동물동반'].map((text, index) => (
+                                        <ListItem key={text} disablePadding>
+                                            <ListItemButton>
+                                            <ListItemIcon>
+                                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                            </ListItemIcon>
+                                            {text === '여행지' ? (
+                                                <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                            ) : (
+                                                text === '행사' ? (
+                                                    <ListItemText primary={text} onClick={() => naviagate(`/festival`)} />
+                                                ) : (
+                                                    <ListItemText primary={text} />
+                                                )
+                                            )}
+                                            </ListItemButton>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                                <Divider />
+                                <List>
+                                    {['게시판', '공지사항', '문의'].map((text, index) => (
+                                    <ListItem key={text} disablePadding>
+                                        <ListItemButton>
+                                        <ListItemIcon>
+                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        </ListItemIcon>
                                         <ListItemText primary={text} />
-                                    )
-                                )}
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['게시판', '공지사항', '문의'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                        ))}
-                    </List>
-                    </Box>
-                </Drawer>
+                                        </ListItemButton>
+                                    </ListItem>
+                                    ))}
+                                </List>
+                            </Box>
+                        </Drawer>
+                    </Slide>
                 )}
 
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
