@@ -13,7 +13,7 @@ const FestivalCard = ({
     const navigate = useNavigate();
 
     const handleDetailPage = () => {
-        navigate(`/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}`)
+        navigate(`/festival/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}&eventstartdate=${item.eventstartdate}&eventenddate=${item.eventenddate}`)
     }
 
     return (

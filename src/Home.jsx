@@ -14,13 +14,18 @@ import HomePage from "./pages/home/HomePage";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DetailPage from "./pages/home/DetailPage";
 import Festival from "./pages/Festival/Festival";
+import FestivalDetailPage from "./pages/Festival/FestivalDetailPage";
 
 const menuItems = ['서울', '강원', '전북', '전남', '제주'];
 const drawerWidth = 240;
 
 export default function Home ({
+    region,
+    setRegion,
     searchRegion,
-    setSearchRegion
+    setSearchRegion,
+    totalLength,
+    setTotalLength,
 }) {
     const [drawerClicked, setDrawerClikded] = useState(false);
 
@@ -43,9 +48,13 @@ export default function Home ({
                 <CssBaseline />
                 <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                     <Nav
+                        region={region}
+                        setRegion={setRegion}
                         searchRegion={searchRegion}
                         setSearchRegion={setSearchRegion}
                         setDrawerClikded={setDrawerClikded}
+                        totalLength={totalLength}
+                        setTotalLength={setTotalLength}
                     />
                 </ AppBar>
                 {drawerClicked ? null : (
@@ -60,7 +69,7 @@ export default function Home ({
                     <Toolbar />
                     <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['여행지', '행사', '지도', 'Drafts'].map((text, index) => (
+                        {['여행지', '행사', '지도', '반려동물동반'].map((text, index) => (
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                 <ListItemIcon>
@@ -81,7 +90,7 @@ export default function Home ({
                     </List>
                     <Divider />
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        {['게시판', '공지사항', '문의'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                             <ListItemIcon>
@@ -99,12 +108,16 @@ export default function Home ({
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <Toolbar />
                     <Grid container spacing={2}>
-                        {/* 반복되는 Grid 아이템을 렌더링 */}
                         <Routes>
                             <Route 
                                 path="/" 
                                 element={
-                                    <HomePage searchRegion={searchRegion} />
+                                    <HomePage 
+                                        searchRegion={searchRegion} 
+                                        setSearchRegion={setSearchRegion} 
+                                        totalLength={totalLength} 
+                                        region={region} 
+                                    />
                                 } 
                             />
 
@@ -118,7 +131,17 @@ export default function Home ({
                             <Route 
                                 path='/festival' 
                                 element={
-                                    <Festival />
+                                    <Festival 
+                                        totalLength={totalLength} 
+                                        region={region} 
+                                    />
+                                } 
+                            />
+
+                            <Route 
+                                path='/festival/detail/:id' 
+                                element={
+                                    <FestivalDetailPage searchRegion={searchRegion} />
                                 } 
                             />
                         </Routes>

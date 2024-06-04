@@ -2,11 +2,44 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'SUIT', sans-serif;
+  font-family: NanumGothic, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }
 
 @font-face {
-  font-family: 'SUIT';
+  font-family: 'NanumGothic';
+  font-style: normal;
+  font-weight: 100;
+  src: url("fonts/NanumGothicLight.woff2") format('woff2'),
+  url("fonts/NanumGothicLight.woff") format('woff'),
+  url("fonts/NanumGothicLight.otf") format('truetype')
+}
+
+@font-face {
+  font-family: 'NanumGothic';
+  font-style: normal;
   font-weight: normal;
-  src: url("./fonts/SUIT-Regular.ttf") format("truetype");
+  src: url("fonts/NanumGothic.woff2") format('woff2'),
+  url("fonts/NanumGothic.woff") format('woff'),
+  url("fonts/NanumGothic.otf") format('truetype')
+}
+
+
+@font-face {
+  font-family: 'NanumGothic';
+  font-style: normal;
+  font-weight: 500;
+  src: url("fonts/NanumGothicBold.otf") format('woff2'),
+  url("fonts/NanumGothicBold.woff") format('woff'),
+  url("fonts/NanumGothicBold.otf") format('truetype')
+}
+
+@font-face {
+  font-family: 'NanumGothic';
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/NanumGothicExtraBold.woff2") format('woff2'),
+  url("fonts/NanumGothicExtraBold.woff") format('woff'),
+  url("fonts/NanumGothicExtraBold.otf") format('truetype')
 }

@@ -59,13 +59,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Nav({
+  region,
+  setRegion,
   searchRegion,
   setSearchRegion,
-  setDrawerClikded
+  setDrawerClikded,
+  totalLength,
+  setTotalLength,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [region, setRegion] = useState('서울');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -100,7 +103,9 @@ export default function Nav({
       const response = await axios.get('http://localhost:7516/api/search', {
         params : { keyword : region }
       });
-      setSearchRegion(response.data);
+      console.log(response.data, "<===")
+      setSearchRegion(response.data.result);
+      setTotalLength(response.data.totalCount);
     }
     fetchTourData();
   }, [region])
@@ -185,7 +190,7 @@ export default function Nav({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color='success'>
         <Toolbar>
           <IconButton
             size="large"
@@ -216,13 +221,14 @@ export default function Nav({
             />
           </Search>
           <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="region-select-label">지역 선택</InputLabel>
+            <InputLabel id="region-select-label" color='success'>지역 선택</InputLabel>
             <Select
               labelId="region-select-label"
               id="region-select"
               value={region}
               onChange={handleRegionChange}
               label="지역 선택"
+              color='success'
             >
               <MenuItem value="서울">서울</MenuItem>
               <MenuItem value="대전">대전</MenuItem>
