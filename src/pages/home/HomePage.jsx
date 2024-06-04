@@ -42,7 +42,7 @@ function HomePage({
                 page={currentPage}
                 onChange={handlePageChange}
                 color="success"
-                sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
+                sx={{ mt: 2, margin:'auto', padding: "30px" }}
             />
         </>
     )

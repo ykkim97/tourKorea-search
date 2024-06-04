@@ -1,6 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
-import RegionCard from "./pages/home/components/RegionCard";
 import Grid from '@mui/material/Grid';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
