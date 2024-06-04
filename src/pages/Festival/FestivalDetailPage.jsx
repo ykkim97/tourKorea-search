@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import DetailMap from "../home/components/DetailMap";
 import axios from "axios";
 import CLoading from "../../components/Loading/CLoading";
+import useSearch from "../../store/search/useSearch";
 
 const FestivalDetailPage = () => {
     const location = useLocation();

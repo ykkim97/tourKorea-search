@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import DetailMap from "./components/DetailMap";
 import CLoading from "../../components/Loading/CLoading";
+import useSearch from "../../store/search/useSearch";
 
 function DetailPage() {
+    const { searchRegion,setSearchRegion, region, setRegion } = useSearch();
     const location = useLocation();
     const [isloading, setIsLoading] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState([]);

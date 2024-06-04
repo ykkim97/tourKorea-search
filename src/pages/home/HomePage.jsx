@@ -2,13 +2,16 @@ import { Box, Grid, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RegionCard from "./components/RegionCard";
 import axios from "axios";
+import useSearch from "../../store/search/useSearch";
 
 function HomePage({
-    region,
-    searchRegion,
-    setSearchRegion,
+    // region,
+    // searchRegion,
+    // setSearchRegion,
     totalLength,
 }) {
+    const { searchRegion,setSearchRegion, region, setRegion } = useSearch();
+
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     

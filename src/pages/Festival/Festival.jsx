@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FestivalCard from "./components/FestivalCard";
 import { Grid, Pagination } from "@mui/material";
+import useSearch from "../../store/search/useSearch";
 
 const Festival = ({
     totalLength,
-    region
+    // region
 }) => {
+    const { region } = useSearch();
     const [festivalData, setFestivalData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);

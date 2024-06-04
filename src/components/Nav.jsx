@@ -18,6 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Select, FormControl, InputLabel } from '@mui/material';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import useSearch from '../store/search/useSearch';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,14 +60,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Nav({
-  region,
-  setRegion,
-  searchRegion,
-  setSearchRegion,
+  // region,
+  // setRegion,
+  // searchRegion,
+  // setSearchRegion,
   setDrawerClikded,
   totalLength,
   setTotalLength,
 }) {
+  const { searchRegion,setSearchRegion, region, setRegion } = useSearch();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -109,10 +112,6 @@ export default function Nav({
     }
     fetchTourData();
   }, [region])
-
-  useEffect(() => {
-    console.log(searchRegion, "searchRegion");
-  }, [searchRegion])
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (

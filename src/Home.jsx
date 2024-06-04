@@ -20,27 +20,11 @@ const menuItems = ['서울', '강원', '전북', '전남', '제주'];
 const drawerWidth = 240;
 
 export default function Home ({
-    region,
-    setRegion,
-    searchRegion,
-    setSearchRegion,
     totalLength,
     setTotalLength,
 }) {
-    const [drawerClicked, setDrawerClikded] = useState(false);
-
     const naviagate = useNavigate();
-
-    const handleMenuClick = async (region) => {
-        try {
-            const response = await axios.get(`http://localhost:7516/api/search`, {
-                params: { region }
-            });
-            setSearchRegion(response.data);
-        } catch (error) {
-            console.error('Error fetching region data:', error);
-        }
-    };
+    const [drawerClicked, setDrawerClikded] = useState(false);
 
     return (
         <>
@@ -48,10 +32,6 @@ export default function Home ({
                 <CssBaseline />
                 <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                     <Nav
-                        region={region}
-                        setRegion={setRegion}
-                        searchRegion={searchRegion}
-                        setSearchRegion={setSearchRegion}
                         setDrawerClikded={setDrawerClikded}
                         totalLength={totalLength}
                         setTotalLength={setTotalLength}
@@ -112,11 +92,8 @@ export default function Home ({
                             <Route 
                                 path="/" 
                                 element={
-                                    <HomePage 
-                                        searchRegion={searchRegion} 
-                                        setSearchRegion={setSearchRegion} 
+                                    <HomePage  
                                         totalLength={totalLength} 
-                                        region={region} 
                                     />
                                 } 
                             />
@@ -124,7 +101,7 @@ export default function Home ({
                             <Route 
                                 path='/detail/:id' 
                                 element={
-                                    <DetailPage searchRegion={searchRegion} />
+                                    <DetailPage />
                                 } 
                             />
 
@@ -133,7 +110,7 @@ export default function Home ({
                                 element={
                                     <Festival 
                                         totalLength={totalLength} 
-                                        region={region} 
+                                        // region={region} 
                                     />
                                 } 
                             />
@@ -141,7 +118,7 @@ export default function Home ({
                             <Route 
                                 path='/festival/detail/:id' 
                                 element={
-                                    <FestivalDetailPage searchRegion={searchRegion} />
+                                    <FestivalDetailPage />
                                 } 
                             />
                         </Routes>
