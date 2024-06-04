@@ -11,8 +11,9 @@ import { AppBar, Box, CssBaseline, Divider, ListItemButton, ListItemIcon, Toolba
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomePage from "./pages/home/HomePage";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import DetailPage from "./pages/home/DetailPage";
+import Festival from "./pages/Festival/Festival";
 
 const menuItems = ['서울', '강원', '전북', '전남', '제주'];
 const drawerWidth = 240;
@@ -22,6 +23,8 @@ export default function Home ({
     setSearchRegion
 }) {
     const [drawerClicked, setDrawerClikded] = useState(false);
+
+    const naviagate = useNavigate();
 
     const handleMenuClick = async (region) => {
         try {
@@ -57,15 +60,23 @@ export default function Home ({
                     <Toolbar />
                     <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        {['검색', '지도', '행사', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
+                        {['여행지', '행사', '지도', 'Drafts'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                <ListItemIcon>
+                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                </ListItemIcon>
+                                {text === '여행지' ? (
+                                    <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                ) : (
+                                    text === '행사' ? (
+                                        <ListItemText primary={text} onClick={() => naviagate(`/festival`)} />
+                                    ) : (
+                                        <ListItemText primary={text} />
+                                    )
+                                )}
+                                </ListItemButton>
+                            </ListItem>
                         ))}
                     </List>
                     <Divider />
@@ -101,6 +112,13 @@ export default function Home ({
                                 path='/detail/:id' 
                                 element={
                                     <DetailPage searchRegion={searchRegion} />
+                                } 
+                            />
+
+                            <Route 
+                                path='/festival' 
+                                element={
+                                    <Festival />
                                 } 
                             />
                         </Routes>

@@ -3,9 +3,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import DetailMap from "./components/DetailMap";
+import CLoading from "../../components/Loading/CLoading";
 
 function DetailPage() {
     const location = useLocation();
+    const [isloading, setIsLoading] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState([]);
     const [mapX, setMapX] = useState(0);
     const [mapY, setMapY] = useState(0);
@@ -20,13 +22,12 @@ function DetailPage() {
                 params : { contentid : contentId, contenttypeid: contenttypeId }
             });
             setSelectedRegion(response.data);
+            
         }
+        setIsLoading(true);
         fetchDetail();
+        setIsLoading(false);
     }, [])
-
-    useEffect(() => {
-        console.log(selectedRegion, "selectedRegion");
-    }, [selectedRegion])
 
     useEffect(() => {
         setMapX(Number(selectedRegion[0]?.mapx));
@@ -34,12 +35,21 @@ function DetailPage() {
         setMapLv(Number(selectedRegion[0]?.mlevel));
     }, [selectedRegion])
 
-    useEffect(() => {
-        console.log(mapX, "mapX")
-        console.log(mapY, "mapY")
-    }, [mapX, mapY])
+    // useEffect(() => {
+    //     console.log(selectedRegion, "selectedRegion");
+    // }, [selectedRegion])
+
+    // useEffect(() => {
+    //     console.log(mapX, "mapX")
+    //     console.log(mapY, "mapY")
+    // }, [mapX, mapY])
+
+    useEffect(()=> {
+        console.log(isloading)
+    }, [isloading])
 
     return (
+        <>
         <Grid sx={{ padding: "60px" }}>
             <Grid sx={{ paddingBottom: "30px" }}>
                 <h1>{selectedRegion[0]?.title}</h1>
@@ -64,7 +74,9 @@ function DetailPage() {
                     <div>
                         <h5>홈페이지 👉</h5>
                     </div>
-                    <div dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
+                    <div>
+                        <div dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
+                    </div>
                 </Box>
                 <CssBaseline />
                 <div>
@@ -72,6 +84,7 @@ function DetailPage() {
                 </div>
             </Grid>
         </Grid>
+        </>
     )
 }
 
