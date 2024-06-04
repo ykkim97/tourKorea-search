@@ -2,12 +2,14 @@ import { Box, CssBaseline, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import DetailMap from "./components/DetailMap";
 
 function DetailPage() {
     const location = useLocation();
-    console.log(location.search)
-
     const [selectedRegion, setSelectedRegion] = useState([]);
+    const [mapX, setMapX] = useState(0);
+    const [mapY, setMapY] = useState(0);
+    const [mapLv, setMapLv] = useState(6);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -26,19 +28,47 @@ function DetailPage() {
         console.log(selectedRegion, "selectedRegion");
     }, [selectedRegion])
 
+    useEffect(() => {
+        setMapX(Number(selectedRegion[0]?.mapx));
+        setMapY(Number(selectedRegion[0]?.mapy));
+        setMapLv(Number(selectedRegion[0]?.mlevel));
+    }, [selectedRegion])
+
+    useEffect(() => {
+        console.log(mapX, "mapX")
+        console.log(mapY, "mapY")
+    }, [mapX, mapY])
+
     return (
         <Grid sx={{ padding: "60px" }}>
             <Grid sx={{ paddingBottom: "30px" }}>
                 <h1>{selectedRegion[0]?.title}</h1>
             </Grid>
             <Grid>
-                <img src={selectedRegion[0]?.firstimage} />
-                <Box sx={{ paddingTop: "30px" }}>
+                <Grid container >
+                    <Grid xs={6} sx={{ padding: "20px" }}>
+                        <img src={selectedRegion[0]?.firstimage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+                    </Grid>
+                    <Grid xs={6} sx={{ padding: "20px" }}>
+                        <DetailMap 
+                            mapX={mapX} 
+                            mapY={mapY} 
+                            mapLv={mapLv}
+                        />
+                    </Grid>
+                </Grid>
+                <Box sx={{ paddingTop: "20px" }}>
                     {selectedRegion[0]?.overview}
+                </Box>
+                <Box sx={{ paddingTop: "20px", display:"flex", alignItems:"center" }}>
+                    <div>
+                        <h5>홈페이지 👉</h5>
+                    </div>
+                    <div dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
                 </Box>
                 <CssBaseline />
                 <div>
-                    {/* {selectedRegion[0]?.homepage} */}
+
                 </div>
             </Grid>
         </Grid>
