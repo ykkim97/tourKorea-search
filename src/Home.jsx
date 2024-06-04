@@ -15,6 +15,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import DetailPage from "./pages/home/DetailPage";
 import Festival from "./pages/Festival/Festival";
 import FestivalDetailPage from "./pages/Festival/FestivalDetailPage";
+import Accommodation from "./pages/Accommodation/Accommodation";
 
 const drawerWidth = 240;
 
@@ -49,19 +50,23 @@ export default function Home ({
                             <Toolbar />
                             <Box sx={{ overflow: 'auto' }}>
                                 <List>
-                                    {['여행지', '행사', '지도', '반려동물동반'].map((text, index) => (
+                                    {['여행지정보', '행사정보', '숙박정보', '지도'].map((text, index) => (
                                         <ListItem key={text} disablePadding>
                                             <ListItemButton>
                                             <ListItemIcon>
                                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                             </ListItemIcon>
-                                            {text === '여행지' ? (
+                                            {text === '여행지정보' ? (
                                                 <ListItemText primary={text} onClick={() => naviagate(`/`)} />
                                             ) : (
-                                                text === '행사' ? (
+                                                text === '행사정보' ? (
                                                     <ListItemText primary={text} onClick={() => naviagate(`/festival`)} />
                                                 ) : (
-                                                    <ListItemText primary={text} />
+                                                    text === '숙박정보' ? (
+                                                        <ListItemText primary={text} onClick={() => naviagate(`/accommodation`)}/>
+                                                    ) : (
+                                                        <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                                    )
                                                 )
                                             )}
                                             </ListItemButton>
@@ -107,6 +112,16 @@ export default function Home ({
 
                             <Route 
                                 path='/festival/detail/:id' 
+                                element={ <FestivalDetailPage /> } 
+                            />
+
+                            <Route 
+                                path='/accommodation' 
+                                element={ <Accommodation totalLength={totalLength} /> } 
+                            />
+
+                            <Route 
+                                path='/accommodation/detail/:id' 
                                 element={ <FestivalDetailPage /> } 
                             />
                         </Routes>
