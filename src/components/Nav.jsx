@@ -21,6 +21,7 @@ import axios from 'axios';
 import useSearch from '../store/search/useSearch';
 import { useNavigate } from 'react-router-dom';
 import useAreaCode from '../store/areaCode/useAreaCode';
+import useAreaSearch from '../store/areaSearch/ussAreaSearch';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,21 +70,12 @@ export default function Nav({
   setTotalLength,
 }) {
   const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
+  const { searchAreaBasedData, setSearchAreaBasedData, areaValue, setAreaValue } = useAreaSearch();
   const { areaCodeData, fetchAreaCode } = useAreaCode();
-  
-  const [areaValue, setAreaValue] = useState(1);
-  const [ searchAreaBasedData, setSearchAreaBasedData ] = useState();
 
   useEffect(() => {
     fetchAreaCode();
   }, [])
-
-  useEffect(() => {
-    console.log(searchRegion, "searchRegion")
-  }, [searchRegion])
-  useEffect(() => {
-    console.log(searchAreaBasedData, "searchAreaBasedData")
-  }, [searchAreaBasedData])
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -123,7 +115,7 @@ export default function Nav({
 
   const handleAreaValue = (value) => {
     setAreaValue(value);
-    navigate('/');
+    navigate('/areaBasedSearch');
   }
 
   useEffect(() => {
@@ -131,7 +123,7 @@ export default function Nav({
       const response = await axios.get('http://localhost:7516/api/search', {
         params : { keyword : region }
       });
-      // console.log(response.data, "<===")
+
       setSearchRegion(response.data.result);
       setTotalLength(response.data.totalCount);
     }
@@ -149,10 +141,6 @@ export default function Nav({
     }
     fetchAreaBasedData();
   }, [areaValue])
-
-  // useEffect(() => {
-  //   console.log(areaValue, "areaValue")
-  // }, [areaValue])
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (

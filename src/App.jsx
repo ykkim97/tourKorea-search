@@ -8,15 +8,6 @@ import useAreaCode from './store/areaCode/useAreaCode';
 function App() {
   // totalCount of datas
   const [totalLength, setTotalLength] = useState(1);
-  // const { areaCodeData, fetchAreaCode } = useAreaCode();
-
-  // useEffect(() => {
-  //   fetchAreaCode();
-  // }, [])
-
-  // useEffect(() => {
-  //   console.log(areaCodeData, "areaCodeData")
-  // }, [areaCodeData])
 
   return (
     <div style={{ display : 'flex', flexDirection : "column" }}>

@@ -15,6 +15,8 @@ import Festival from "./pages/Festival/Festival";
 import FestivalDetailPage from "./pages/Festival/FestivalDetailPage";
 import Accommodation from "./pages/Accommodation/Accommodation";
 import AccommodationDetailPage from "./pages/Accommodation/components/AccommodationDetailPage";
+import AreaSearch from "./pages/AreaSearch/AreaSearch";
+import AreaSearchDetailPage from "./pages/AreaSearch/AreaSearchDetailPage";
 
 const drawerWidth = 240;
 
@@ -49,22 +51,26 @@ export default function Home ({
                             <Toolbar />
                             <Box sx={{ overflow: 'auto' }}>
                                 <List>
-                                    {['여행지정보', '행사정보', '숙박정보', '지도'].map((text, index) => (
+                                    {['키워드 검색', '지역별 검색', '행사정보', '숙박정보', '지도'].map((text, index) => (
                                         <ListItem key={text} disablePadding>
                                             <ListItemButton>
                                             <ListItemIcon>
                                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                             </ListItemIcon>
-                                            {text === '여행지정보' ? (
+                                            {text === '키워드 검색' ? (
                                                 <ListItemText primary={text} onClick={() => naviagate(`/`)} />
                                             ) : (
-                                                text === '행사정보' ? (
-                                                    <ListItemText primary={text} onClick={() => naviagate(`/festival`)} />
+                                                text === '지역별 검색' ? (
+                                                    <ListItemText primary={text} onClick={() => naviagate(`/areaBasedSearch`)} />
                                                 ) : (
-                                                    text === '숙박정보' ? (
-                                                        <ListItemText primary={text} onClick={() => naviagate(`/accommodation`)}/>
+                                                    text === '행사정보' ? (
+                                                        <ListItemText primary={text} onClick={() => naviagate(`/festival`)}/>
                                                     ) : (
-                                                        <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                                        text === '숙박정보' ? (
+                                                            <ListItemText primary={text} onClick={() => naviagate(`/accommodation`)} />
+                                                        ) : (
+                                                            <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                                        )
                                                     )
                                                 )
                                             )}
@@ -102,6 +108,16 @@ export default function Home ({
                             <Route 
                                 path='/detail/:id' 
                                 element={ <DetailPage /> } 
+                            />
+
+                            <Route 
+                                path="/areaBasedSearch" 
+                                element={ <AreaSearch totalLength={totalLength} /> } 
+                            />
+
+                            <Route 
+                                path='/areaBasedSearch/detail/:id' 
+                                element={ <AreaSearchDetailPage /> } 
                             />
 
                             <Route 
