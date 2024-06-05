@@ -13,7 +13,7 @@ const AccommodationCard = ({
     const navigate = useNavigate();
 
     const handleDetailPage = () => {
-        navigate(`/accommodation/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}&eventstartdate=${item.eventstartdate}&eventenddate=${item.eventenddate}`)
+        navigate(`/accommodation/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}`)
     }
 
     return (

@@ -27,6 +27,10 @@ const Accommodation = ({
         fetchAccommodation();
     }, [totalLength, currentPage])
 
+    useEffect(() =>{
+        console.log(accommodationData,"accommodationData")
+    }, [accommodationData])
+
     return (
         <>
             {accommodationData && accommodationData.map((item) => (

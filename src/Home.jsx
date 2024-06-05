@@ -14,6 +14,7 @@ import DetailPage from "./pages/home/DetailPage";
 import Festival from "./pages/Festival/Festival";
 import FestivalDetailPage from "./pages/Festival/FestivalDetailPage";
 import Accommodation from "./pages/Accommodation/Accommodation";
+import AccommodationDetailPage from "./pages/Accommodation/components/AccommodationDetailPage";
 
 const drawerWidth = 240;
 
@@ -120,7 +121,7 @@ export default function Home ({
 
                             <Route 
                                 path='/accommodation/detail/:id' 
-                                element={ <FestivalDetailPage /> } 
+                                element={ <AccommodationDetailPage /> } 
                             />
                         </Routes>
                     </Grid>

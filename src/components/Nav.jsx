@@ -20,6 +20,7 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 import useSearch from '../store/search/useSearch';
 import { useNavigate } from 'react-router-dom';
+import useAreaCode from '../store/areaCode/useAreaCode';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -68,6 +69,21 @@ export default function Nav({
   setTotalLength,
 }) {
   const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
+  const { areaCodeData, fetchAreaCode } = useAreaCode();
+  
+  const [areaValue, setAreaValue] = useState(1);
+  const [ searchAreaBasedData, setSearchAreaBasedData ] = useState();
+
+  useEffect(() => {
+    fetchAreaCode();
+  }, [])
+
+  useEffect(() => {
+    console.log(searchRegion, "searchRegion")
+  }, [searchRegion])
+  useEffect(() => {
+    console.log(searchAreaBasedData, "searchAreaBasedData")
+  }, [searchAreaBasedData])
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -105,6 +121,11 @@ export default function Nav({
     navigate('/');
   }
 
+  const handleAreaValue = (value) => {
+    setAreaValue(value);
+    navigate('/');
+  }
+
   useEffect(() => {
     const fetchTourData = async () => {
       const response = await axios.get('http://localhost:7516/api/search', {
@@ -116,6 +137,22 @@ export default function Nav({
     }
     fetchTourData();
   }, [region])
+
+  useEffect(() => {
+    const fetchAreaBasedData = async () => {
+      const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
+        params : { areaCode : areaValue }
+      });
+
+      setSearchAreaBasedData(response.data.result);
+      setTotalLength(response.data.totalCount);
+    }
+    fetchAreaBasedData();
+  }, [areaValue])
+
+  // useEffect(() => {
+  //   console.log(areaValue, "areaValue")
+  // }, [areaValue])
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -235,9 +272,16 @@ export default function Nav({
               color='success'
               sx={{ color : "#fff" }}
             >
-              {regionArray?.map((item) => (
-                <MenuItem value={item} onClick={() => navigate('/')}>{item}</MenuItem>
-              ))}
+              {
+                areaCodeData && areaCodeData.result?.map((item) => (
+                  <MenuItem 
+                    value={item.code} 
+                    onClick={() => handleAreaValue(Number(item.code))}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))
+              }
             </Select>
           </FormControl>
           <Box sx={{ flexGrow: 1 }} />
