@@ -8,7 +8,7 @@ import useAreaSearch from "../../store/areaSearch/ussAreaSearch";
 function AreaSearch({
     totalLength,
 }) {
-    const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
+    // const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
     const { areaValue, setAreaValue, searchAreaBasedData, setSearchAreaBasedData } = useAreaSearch();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +23,7 @@ function AreaSearch({
             const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
                 params: { areaCode: areaValue, pageNo: currentPage }
             });
-            setSearchRegion(response.data.result);
+            setSearchAreaBasedData(response.data.result);
             setTotalPages(Math.ceil(totalLength / 12));
         };
         fetchTourData();
