@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import DetailMap from "../../home/components/DetailMap";
+import MiddleTabs from "./MiddleTabs";
 
 const AccommodationDetailPage = () => {
     const location = useLocation();
@@ -64,29 +65,13 @@ const AccommodationDetailPage = () => {
                             </Grid>
                         </Grid>
 
-                        <hr style={{ marginTop : "20px" }}/>
-
-                        <Box sx={{ paddingTop: "20px" }}>
+                        <Box sx={{ padding: "20px" }}>
                             {selectedRegion[0]?.overview}
                         </Box>
-
-                        <hr style={{ marginTop : "20px", marginBottom:"20px" }}/>
-
-                        <Box>
-                            <div style={{ display : "flex", alignItems: "center" }}>
-                                <h5>홈페이지 | </h5> 
-                                <h5 dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
-                            </div>
-                            <h5>주소 | {selectedRegion[0]?.addr1} {selectedRegion[0]?.addr2}</h5>
-                            {/* <h5>행사시작일 | {startDate.slice(0,4)}년 {startDate.slice(4,6)}월 {startDate.slice(6,8)}일</h5> */}
-                            {/* <h5>행사종료일 | {endDate.slice(0,4)}년 {endDate.slice(4,6)}월 {endDate.slice(6,8)}일</h5> */}
-                            <h5>{selectedRegion[0]?.telname} | {selectedRegion[0]?.tel}</h5>
-                        </Box>
                         
-                        <CssBaseline />
-                        <div>
-
-                        </div>
+                        <Box sx={{ padding : '20px', width: "100%" }}>
+                            <MiddleTabs selectedRegion={selectedRegion} />
+                        </Box>
                     </Grid>
                 </Grid>
         </>
