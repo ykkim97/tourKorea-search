@@ -1,10 +1,11 @@
-import { Box, CssBaseline, Grid } from "@mui/material";
+import { Box, CssBaseline, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import DetailMap from "./components/DetailMap";
 import CLoading from "../../components/Loading/CLoading";
 import useSearch from "../../store/search/useSearch";
+import MiddleTabs from "./components/MiddleTabs";
 
 function DetailPage() {
     const { searchRegion,setSearchRegion, region, setRegion } = useSearch();
@@ -37,19 +38,6 @@ function DetailPage() {
         setMapLv(Number(selectedRegion[0]?.mlevel));
     }, [selectedRegion])
 
-    // useEffect(() => {
-    //     console.log(selectedRegion, "selectedRegion");
-    // }, [selectedRegion])
-
-    // useEffect(() => {
-    //     console.log(mapX, "mapX")
-    //     console.log(mapY, "mapY")
-    // }, [mapX, mapY])
-
-    useEffect(()=> {
-        console.log(isloading)
-    }, [isloading])
-
     return (
         <>
         <Grid sx={{ padding: "60px" }}>
@@ -57,7 +45,7 @@ function DetailPage() {
                 <h1>{selectedRegion[0]?.title}</h1>
             </Grid>
             <Grid>
-                <Grid container >
+                <Grid container>
                     <Grid xs={6} sx={{ padding: "20px" }}>
                         <img src={selectedRegion[0]?.firstimage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
                     </Grid>
@@ -69,21 +57,14 @@ function DetailPage() {
                         />
                     </Grid>
                 </Grid>
-                <Box sx={{ paddingTop: "20px" }}>
-                    {selectedRegion[0]?.overview}
-                </Box>
-                <Box sx={{ paddingTop: "20px", display:"flex", alignItems:"center" }}>
-                    <div>
-                        <h5>홈페이지 👉</h5>
-                    </div>
-                    <div>
-                        <div dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
-                    </div>
-                </Box>
-                <CssBaseline />
-                <div>
 
-                </div>
+                <Box sx={{ padding: "20px" }}>
+                    <Typography>{selectedRegion[0]?.overview}</Typography>
+                </Box>
+
+                <Box sx={{ padding : '20px', width: "100%" }}>
+                    <MiddleTabs selectedRegion={selectedRegion} />
+                </Box>
             </Grid>
         </Grid>
         </>

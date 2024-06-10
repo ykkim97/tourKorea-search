@@ -17,6 +17,11 @@ import Accommodation from "./pages/Accommodation/Accommodation";
 import AccommodationDetailPage from "./pages/Accommodation/components/AccommodationDetailPage";
 import AreaSearch from "./pages/AreaSearch/AreaSearch";
 import AreaSearchDetailPage from "./pages/AreaSearch/AreaSearchDetailPage";
+import MapIcon from '@mui/icons-material/Map';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import FestivalIcon from '@mui/icons-material/Festival';
+import HotelIcon from '@mui/icons-material/Hotel';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 const drawerWidth = 240;
 
@@ -52,10 +57,16 @@ export default function Home ({
                             <Box sx={{ overflow: 'auto' }}>
                                 <List>
                                     {['키워드 검색', '지역별 검색', '행사정보', '숙박정보', '지도'].map((text, index) => (
-                                        <ListItem key={text} disablePadding>
+                                        <ListItem key={text} disablePadding >
                                             <ListItemButton>
-                                            <ListItemIcon>
-                                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                            <ListItemIcon sx={{ color: "black" }}>
+                                                {index === 0 ? <ManageSearchIcon /> : (
+                                                    index === 1 ? <QueryStatsIcon /> : (
+                                                        index === 2 ? <FestivalIcon /> : (
+                                                            index === 3 ? <HotelIcon /> : <MapIcon />
+                                                        )
+                                                    )
+                                                )}
                                             </ListItemIcon>
                                             {text === '키워드 검색' ? (
                                                 <ListItemText primary={text} onClick={() => naviagate(`/`)} />
@@ -80,7 +91,7 @@ export default function Home ({
                                 </List>
                                 <Divider />
                                 <List>
-                                    {['게시판', '공지사항', '문의'].map((text, index) => (
+                                    {['QnA', '공지사항', '문의'].map((text, index) => (
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton>
                                         <ListItemIcon>

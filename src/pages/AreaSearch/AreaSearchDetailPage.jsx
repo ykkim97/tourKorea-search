@@ -1,4 +1,4 @@
-import { Box, CssBaseline, Grid } from "@mui/material";
+import { Box, CssBaseline, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import DetailMap from "./components/DetailMap";
 import CLoading from "../../components/Loading/CLoading";
 import useSearch from "../../store/search/useSearch";
 import useAreaSearch from "../../store/areaSearch/ussAreaSearch";
+import MiddleTabs from "./components/MiddleTabs";
 
 function AreaSearchDetailPage() {
     const { searchAreaBasedData,setSearchAreaBasedData, areaValue, setAreaValue } = useAreaSearch();
@@ -56,21 +57,13 @@ function AreaSearchDetailPage() {
                         />
                     </Grid>
                 </Grid>
-                <Box sx={{ paddingTop: "20px" }}>
-                    {selectedRegion[0]?.overview}
+                <Box sx={{ padding: "20px" }}>
+                    <Typography>{selectedRegion[0]?.overview}</Typography>
                 </Box>
-                <Box sx={{ paddingTop: "20px", display:"flex", alignItems:"center" }}>
-                    <div>
-                        <h5>홈페이지 👉</h5>
-                    </div>
-                    <div>
-                        <div dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
-                    </div>
-                </Box>
-                <CssBaseline />
-                <div>
 
-                </div>
+                <Box sx={{ padding : '20px', width: "100%" }}>
+                    <MiddleTabs selectedRegion={selectedRegion} />
+                </Box>
             </Grid>
         </Grid>
         </>

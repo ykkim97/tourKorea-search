@@ -1,10 +1,11 @@
-import { Box, CssBaseline, Grid } from "@mui/material";
+import { Box, CssBaseline, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DetailMap from "../home/components/DetailMap";
 import axios from "axios";
 import CLoading from "../../components/Loading/CLoading";
 import useSearch from "../../store/search/useSearch";
+import MiddleTabs from "./components/MiddleTabs";
 
 const FestivalDetailPage = () => {
     const location = useLocation();
@@ -13,16 +14,6 @@ const FestivalDetailPage = () => {
     const [mapX, setMapX] = useState(0);
     const [mapY, setMapY] = useState(0);
     const [mapLv, setMapLv] = useState(6);
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const startdate = params.get('eventstartdate');
-        const enddate = params.get('eventenddate');
-        setStartDate(startdate)
-        setEndDate(enddate)
-    }, [])
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -68,29 +59,13 @@ const FestivalDetailPage = () => {
                             </Grid>
                         </Grid>
 
-                        <hr style={{ marginTop : "20px" }}/>
-
-                        <Box sx={{ paddingTop: "20px" }}>
-                            {selectedRegion[0]?.overview}
+                        <Box sx={{ padding: "20px" }}>
+                            <Typography>{selectedRegion[0]?.overview}</Typography>
                         </Box>
 
-                        <hr style={{ marginTop : "20px", marginBottom:"20px" }}/>
-
-                        <Box>
-                            <div style={{ display : "flex", alignItems: "center" }}>
-                                <h5>홈페이지 | </h5> 
-                                <h5 dangerouslySetInnerHTML={{ __html: selectedRegion[0]?.homepage }} />
-                            </div>
-                            <h5>주소 | {selectedRegion[0]?.addr1} {selectedRegion[0]?.addr2}</h5>
-                            <h5>행사시작일 | {startDate.slice(0,4)}년 {startDate.slice(4,6)}월 {startDate.slice(6,8)}일</h5>
-                            <h5>행사종료일 | {endDate.slice(0,4)}년 {endDate.slice(4,6)}월 {endDate.slice(6,8)}일</h5>
-                            <h5>{selectedRegion[0]?.telname} | {selectedRegion[0]?.tel}</h5>
+                        <Box sx={{ padding : '20px', width: "100%" }}>
+                            <MiddleTabs selectedRegion={selectedRegion} />
                         </Box>
-                        
-                        <CssBaseline />
-                        <div>
-
-                        </div>
                     </Grid>
                 </Grid>
             )}
