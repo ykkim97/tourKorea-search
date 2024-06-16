@@ -6,6 +6,18 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/material";
+import noImage from '@/assets/no_Image.png';
+
+const CardSection = styled(Card)`
+    max-width: 345px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    box-shadow: 2px 15px 40px -10px grey;
+    border-radius: 20px;
+`;
 
 const FestivalCard = ({
     item
@@ -16,15 +28,17 @@ const FestivalCard = ({
         navigate(`/festival/detail/${item.contentid}?title=${item.title}&contentId=${item.contentid}&contenttypeid=${item.contenttypeid}&createdtime=${item.createdtime}&modifiedtime=${item.modifiedtime}&eventstartdate=${item.eventstartdate}&eventenddate=${item.eventenddate}`)
     }
 
+    // 이미지가 없을 때
+    const imageUrl = item.firstimage && item.firstimage.trim() !== "" ? item.firstimage : noImage;
+
     return (
         <>
-            <Card 
-                sx={{ maxWidth: 345, display: 'flex', flexDirection: 'column', height: '100%', cursor: 'pointer' }}
+            <CardSection 
                 onClick={handleDetailPage}
             >
                 <CardMedia
                     sx={{ height: 140 }}
-                    image={item.firstimage}
+                    image={imageUrl}
                     title="green iguana"
                     loading="lazy"
                 />
@@ -36,11 +50,11 @@ const FestivalCard = ({
                         {item.addr1} {item.addr2}
                     </Typography>
                 </CardContent>
-                <CardActions sx={{ mt: 'auto' }}>
+                <CardActions sx={{ mt: 'auto', display: "flex", justifyContent: "flex-end" }}>
                     <Button size="small" variant="contained" color="primary">상세보기</Button>
-                    <Button size="small">Learn More</Button>
+                    {/* <Button size="small">Learn More</Button> */}
                 </CardActions>
-            </Card>
+            </CardSection>
         </>
     )
 }
