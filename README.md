@@ -8,4 +8,5 @@ https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578
 ### Tech
 
  - FrontEnd : React.js, JavaScript, Zustand
- - BackEnd : Nodejs
+ - BackEnd : Nodejs, Express
+ - Database : MongoDB 
