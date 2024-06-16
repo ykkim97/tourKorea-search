@@ -22,6 +22,7 @@ import useSearch from '../store/search/useSearch';
 import { useNavigate } from 'react-router-dom';
 import useAreaCode from '../store/areaCode/useAreaCode';
 import useAreaSearch from '../store/areaSearch/ussAreaSearch';
+import useLoginUser from '../store/Login/useLoginUser';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,6 +73,7 @@ export default function Nav({
   const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
   const { searchAreaBasedData, setSearchAreaBasedData, areaValue, setAreaValue } = useAreaSearch();
   const { areaCodeData, fetchAreaCode } = useAreaCode();
+  const { userData, setUserData } = useLoginUser();
 
   useEffect(() => {
     fetchAreaCode();
@@ -118,29 +120,15 @@ export default function Nav({
     navigate('/areaBasedSearch');
   }
 
-  useEffect(() => {
-    const fetchTourData = async () => {
-      const response = await axios.get('http://localhost:7516/api/search', {
-        params : { keyword : region }
-      });
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
-      setSearchRegion(response.data.result);
-      setTotalLength(response.data.totalCount);
-    }
-    fetchTourData();
-  }, [region])
-
-  useEffect(() => {
-    const fetchAreaBasedData = async () => {
-      const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
-        params : { areaCode : areaValue }
-      });
-
-      setSearchAreaBasedData(response.data.result);
-      setTotalLength(response.data.totalCount);
-    }
-    fetchAreaBasedData();
-  }, [areaValue])
+  const handleLogout = () => {
+    // 로그아웃 시 클라이언트 상태 초기화 및 쿠키 삭제
+    setUserData(null);
+    localStorage.removeItem('x_auth');
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -216,6 +204,53 @@ export default function Nav({
     </Menu>
   );
 
+  useEffect(() => {
+    const fetchTourData = async () => {
+      const response = await axios.get('http://localhost:7516/api/search', {
+        params : { keyword : region }
+      });
+
+      setSearchRegion(response.data.result);
+      setTotalLength(response.data.totalCount);
+    }
+    fetchTourData();
+  }, [region])
+
+  useEffect(() => {
+    const fetchAreaBasedData = async () => {
+      const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
+        params : { areaCode : areaValue }
+      });
+
+      setSearchAreaBasedData(response.data.result);
+      setTotalLength(response.data.totalCount);
+    }
+    fetchAreaBasedData();
+  }, [areaValue])
+
+  useEffect(() => {
+    // 페이지 로드 시 쿠키에 저장된 토큰을 기반으로 사용자 정보를 가져옴
+    const token = localStorage.getItem('x_auth');
+    if (token) {
+      axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/auth`, {
+        headers: {
+          'x_auth': token,
+        },
+      })
+      .then(response => {
+        console.log('인증 확인:', response.data);
+        setUserData(response.data);
+      })
+      .catch(error => {
+        console.error('인증 오류:', error);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("로그인된 유저 데이터 ", userData);
+  }, [userData])
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='success'>
@@ -274,33 +309,31 @@ export default function Nav({
           </FormControl>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button variant='contained' color='primary' onClick={() => navigate("/login")}>로그인</Button>
 
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
+            {!userData ? (
+              <Button variant='contained' color='primary' onClick={handleLogin}>로그인</Button>
+            ) : (
+              <Box sx={{ display:"flex", alignItems: "center" }}>
+                <IconButton
+                    size="large"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    // onClick={handleProfileMenuOpen}
+                    color="inherit"
+                    sx={{ marginRight:"5px" }}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                <Box sx={{ display: "flex",flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
+                  <Typography sx={{ marginRight: "10px" }}>{userData?.userName}님 </Typography>
+                  <Typography sx={{ marginRight: "10px", color: "yellow", fontSize:"13px" }}>{userData?.userNickname}</Typography>
+                </Box>
+                <Button variant='contained' color='info' onClick={handleLogout}>로그아웃</Button>
+              </Box>
+            )}
+
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

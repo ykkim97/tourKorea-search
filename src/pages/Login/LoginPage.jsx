@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useLoginUser from '../../store/Login/useLoginUser';
 
 const LoginContainer = styled(Container)`
     width: 100%;
@@ -40,6 +42,7 @@ const SignupNavigator = styled(Typography)`
 const SubmitButton = styled(Button)({margin: '3px 0 2px'});
 
 const LoginPage = () => {
+    const { setUserData } = useLoginUser();
     const navigate = useNavigate();
 
     const {register, handleSubmit, formState: {
@@ -48,7 +51,20 @@ const LoginPage = () => {
 
     const onSubmit = (data) => {
         console.log(data);
-        // 로그인 로직을 추가
+        axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/login`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            console.log('Login status', response.data);
+            setUserData(response.data)
+            navigate("/");
+        })
+        .catch(error => {
+            alert('계정을 확인해주세요.')
+            console.error('회원가입 실패:', error);
+        });
     };
 
     return (
