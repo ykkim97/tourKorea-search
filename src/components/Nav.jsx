@@ -15,7 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Select, FormControl, InputLabel } from '@mui/material';
+import { Select, FormControl, InputLabel, Button } from '@mui/material';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import useSearch from '../store/search/useSearch';
@@ -274,7 +274,9 @@ export default function Nav({
           </FormControl>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Button variant='contained' color='primary' onClick={() => navigate("/login")}>로그인</Button>
+
+            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
@@ -298,7 +300,7 @@ export default function Nav({
               color="inherit"
             >
               <AccountCircle />
-            </IconButton>
+            </IconButton> */}
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

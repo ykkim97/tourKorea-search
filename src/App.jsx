@@ -3,7 +3,6 @@ import './App.css'
 import Footer from './components/Footer';
 import Home from './Home';
 import axios from "axios";
-import useAreaCode from './store/areaCode/useAreaCode';
 
 function App() {
   // totalCount of datas

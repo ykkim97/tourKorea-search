@@ -22,6 +22,8 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FestivalIcon from '@mui/icons-material/Festival';
 import HotelIcon from '@mui/icons-material/Hotel';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import LoginPage from "./pages/Login/LoginPage";
+import SignUpPage from "./pages/SignUp/SignUpPage";
 
 const drawerWidth = 240;
 
@@ -107,10 +109,20 @@ export default function Home ({
                     </Slide>
                 )}
 
-                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft: 3 }}>
                     <Toolbar />
                     <Grid container spacing={2}>
                         <Routes>
+                            <Route 
+                                path="/login" 
+                                element={ <LoginPage /> } 
+                            />
+
+                            <Route 
+                                path="/signup" 
+                                element={ <SignUpPage /> } 
+                            />
+                            
                             <Route 
                                 path="/" 
                                 element={ <HomePage totalLength={totalLength} /> } 
