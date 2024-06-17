@@ -25,12 +25,8 @@ const Accommodation = ({
             setTotalPages(Math.ceil(totalLength / 12));
         }
         fetchAccommodation();
-    }, [totalLength, currentPage])
-
-    useEffect(() =>{
-        console.log(accommodationData,"accommodationData")
-    }, [accommodationData])
-
+    }, [totalLength, currentPage]);
+    
     return (
         <>
             {accommodationData && accommodationData.map((item) => (

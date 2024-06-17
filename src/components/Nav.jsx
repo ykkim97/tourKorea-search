@@ -268,7 +268,7 @@ export default function Nav({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color='success'>
+      <AppBar position="static" color='transparent'>
         <Toolbar>
           <IconButton
             size="large"
@@ -287,7 +287,7 @@ export default function Nav({
             sx={{ display: { xs: 'none', sm: 'block', cursor: 'pointer' } }}
             onClick={handleHomeNavigation}
           >
-            여행지검색
+            TripStory
           </Typography>
           <Search>
             <SearchIconWrapper>

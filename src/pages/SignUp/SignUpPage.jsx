@@ -44,15 +44,12 @@ const SignUpPage = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        console.log(data); // { email, password, name, gender, birthdate, nickname }
-
         axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/register`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },
         })
         .then(response => {
-            console.log('회원가입 성공:', response.data);
             alert('회원가입이 완료되었습니다!');
             navigate("/login");
         })

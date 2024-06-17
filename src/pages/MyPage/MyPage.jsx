@@ -13,10 +13,6 @@ const MyPage = () => {
         navigate('/mypage/updateMyInfo');
     }
 
-    useEffect(() => {
-        console.log(userData, "userData")
-    }, [userData])
-
     const formattedDate = new Date(userData?.userBirthDay).toLocaleDateString('ko-KR', {
         year: 'numeric',
         month: 'long',
@@ -25,15 +21,15 @@ const MyPage = () => {
 
     return (
         <MyPageContainer>
-            <TitleBox pl={2}>
+            <TitleBox>
                 <TitleText fontSize={23}><strong>마이페이지</strong></TitleText>
             </TitleBox>
-            <IntroBox pl={2}>
-                <Typography mb={2}>
-                    <strong>김영권님 반갑습니다.</strong>
+            <IntroBox>
+                <Typography mb={2} sx={{ display:"flex", alignItems: "center" }}>
+                    <strong style={{ paddingLeft: '20px' }}>김영권님 반갑습니다.</strong>
                     <Button color='success'>일반회원</Button>
                 </Typography>
-                <Button variant='contained' color='info' onClick={handleUpdateMyInfo}>회원 정보 수정</Button>
+                <Button variant='contained' color='info' onClick={handleUpdateMyInfo} sx={{ marginLeft: '20px'}}>회원 정보 수정</Button>
             </IntroBox>
 
             <InfoBox>
@@ -76,28 +72,33 @@ const MyPage = () => {
 export default MyPage;
 
 const MyPageContainer = styled(Container)({
+    fontFamily:'Pretendard-Regular',
     width: '100%',
 })
 
 const TitleBox = styled(Box)({
+    paddingLeft: '20px',
     marginTop : '20px',
     padding : "20px 0 20px 0",
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 })
 
 const IntroBox = styled(Box)({
+    paddingLeft: '20px',
     marginTop : '20px',
     padding : "20px 0 20px 0",
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 })
 
 const InfoBox = styled(Box)({
+    paddingLeft: '20px',
     marginTop : '20px',
     padding : "20px 0 20px 0",
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 })
 
 const MyPostBox = styled(Box)({
+    paddingLeft: '20px',
     marginTop : '20px',
     padding : "20px 0 20px 0",
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
@@ -106,6 +107,7 @@ const MyPostBox = styled(Box)({
 })
 
 const TitleText = styled(Typography)({
+    paddingLeft: '20px',
     textAlign: "left",
     color: "black",
 })

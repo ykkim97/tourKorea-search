@@ -39,7 +39,7 @@ const RegionCard = ({
                 <CardMedia
                     sx={{ height: 140 }}
                     image={imageUrl}
-                    title="green iguana"
+                    title={item.title}
                     loading="lazy"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
@@ -51,7 +51,7 @@ const RegionCard = ({
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ mt: 'auto', display: "flex", justifyContent: "flex-end" }}>
-                    <Button size="small" variant="contained" color="primary">상세보기</Button>
+                    <Button size="small" variant="contained" color="primary">더 보기</Button>
                 </CardActions>
             </CardSection>
         </>

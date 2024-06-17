@@ -53,10 +53,6 @@ const MiddleTabs = ({
         setValue(index);
     };
 
-    useEffect(() => {
-        console.log(selectedRegion, "selectedRegion")
-    }, [selectedRegion])
-
     return (
         <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
             <AppBar position="static">

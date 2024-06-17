@@ -50,7 +50,6 @@ const LoginPage = () => {
         }} = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/login`, data, {
             withCredentials: true,
             headers: {
@@ -58,7 +57,6 @@ const LoginPage = () => {
             },
         })
         .then(response => {
-            console.log('Login status', response.data);
             document.cookie.split(';').forEach(cookie => {
                 const [name, value] = cookie.trim().split('=');
                 if (name === 'x_auth') {

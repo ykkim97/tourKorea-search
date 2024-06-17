@@ -55,10 +55,11 @@ export default function Home ({
                                 width: drawerWidth,
                                 flexShrink: 0,
                                 [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+                                fontFamily: 'Pretendard-Regular'
                             }}
                         >
                             <Toolbar />
-                            <Box sx={{ overflow: 'auto' }}>
+                            <Box sx={{ overflow: 'auto', }}>
                                 <List>
                                     {['키워드 검색', '지역별 검색', '행사정보', '숙박정보', '지도'].map((text, index) => (
                                         <ListItem key={text} disablePadding >
