@@ -1,6 +1,8 @@
 import { CardContent, Typography, CardActions, Box, Button } from "@mui/material";
 import Card from '@mui/material/Card';
 import React from "react";
+import useLoginUser from "../../../store/Login/useLoginUser";
+import { useNavigate } from "react-router-dom";
 
 const rows = [
     { userId : 'qwer9877', title : "괜찮은 여행지", stars: 5, desc: "Very Good!"  },
@@ -11,6 +13,18 @@ const rows = [
 ]
 
 const Review = () => {
+    const { userData } = useLoginUser();
+    const navigate = useNavigate();
+
+    const handleAddReview = async () => {
+        if (!userData) {
+            alert('로그인이 필요한 서비스입니다.');
+            navigate('/login');
+        } else {
+            navigate('/review');
+        }
+    }
+
     return (
         <Box sx={{ minWidth: 275 }}>
             {rows?.map((row) => (
@@ -32,7 +46,7 @@ const Review = () => {
                 </Card>
             ))}
             <Box sx={{ textAlign: "right", pt: 2 }}>
-                <Button variant="contained" color="primary">리뷰 작성하기</Button>
+                <Button variant="contained" color="primary" onClick={handleAddReview}>리뷰 작성하기</Button>
             </Box>
         </Box>
     )

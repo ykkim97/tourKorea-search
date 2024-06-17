@@ -52,12 +52,19 @@ const LoginPage = () => {
     const onSubmit = (data) => {
         console.log(data);
         axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/login`, data, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             },
         })
         .then(response => {
             console.log('Login status', response.data);
+            document.cookie.split(';').forEach(cookie => {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'x_auth') {
+                    localStorage.setItem('x_auth', value);
+                }
+            });
             setUserData(response.data)
             navigate("/");
         })

@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import useAreaCode from '../store/areaCode/useAreaCode';
 import useAreaSearch from '../store/areaSearch/ussAreaSearch';
 import useLoginUser from '../store/Login/useLoginUser';
+import { getCookie, deleteCookie } from '../utils/cookie';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -73,7 +74,7 @@ export default function Nav({
   const { searchRegion, setSearchRegion, region, setRegion } = useSearch();
   const { searchAreaBasedData, setSearchAreaBasedData, areaValue, setAreaValue } = useAreaSearch();
   const { areaCodeData, fetchAreaCode } = useAreaCode();
-  const { userData, setUserData } = useLoginUser();
+  const { userData, setUserData, userToken, setUserToken } = useLoginUser();
 
   useEffect(() => {
     fetchAreaCode();
@@ -125,9 +126,20 @@ export default function Nav({
   };
 
   const handleLogout = () => {
-    // 로그아웃 시 클라이언트 상태 초기화 및 쿠키 삭제
-    setUserData(null);
-    localStorage.removeItem('x_auth');
+    axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/logout`, {
+      headers: {
+        'x_auth': getCookie('x_auth')
+      }
+    })
+    .then(response => {
+      console.log('[Logout Success]:', response.data);
+      setUserData(null);
+      setUserToken('');
+      deleteCookie('x_auth');
+    })
+    .catch(error => {
+      console.error('[Logout Error] :', error);
+    });
   };
 
   const menuId = 'primary-search-account-menu';
@@ -229,8 +241,8 @@ export default function Nav({
   }, [areaValue])
 
   useEffect(() => {
-    // 페이지 로드 시 쿠키에 저장된 토큰을 기반으로 사용자 정보를 가져옴
-    const token = localStorage.getItem('x_auth');
+    const token = getCookie('x_auth');
+    setUserToken(token);
     if (token) {
       axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/auth`, {
         headers: {
@@ -243,13 +255,12 @@ export default function Nav({
       })
       .catch(error => {
         console.error('인증 오류:', error);
+        setUserData(null);
       });
+    } else {
+      setUserData(null);
     }
-  }, []);
-
-  useEffect(() => {
-    console.log("로그인된 유저 데이터 ", userData);
-  }, [userData])
+  }, [userToken]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -299,6 +310,7 @@ export default function Nav({
                 areaCodeData && areaCodeData.result?.map((item) => (
                   <MenuItem 
                     value={item.code} 
+                    key={item.code}
                     onClick={() => handleAreaValue(Number(item.code))}
                   >
                     {item.name}
