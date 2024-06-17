@@ -24,6 +24,8 @@ import HotelIcon from '@mui/icons-material/Hotel';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import LoginPage from "./pages/Login/LoginPage";
 import SignUpPage from "./pages/SignUp/SignUpPage";
+import MyPage from "./pages/MyPage/MyPage";
+import UpdateMyInfo from "./pages/MyPage/update/UpdateMyInfo";
 
 const drawerWidth = 240;
 
@@ -121,6 +123,16 @@ export default function Home ({
                             <Route 
                                 path="/signup" 
                                 element={ <SignUpPage /> } 
+                            />
+
+                            <Route 
+                                path="/mypage" 
+                                element={ <MyPage /> } 
+                            />
+
+                            <Route 
+                                path="/mypage/updateMyInfo" 
+                                element={ <UpdateMyInfo /> } 
                             />
                             
                             <Route 
