@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import DetailMap from "../../home/components/DetailMap";
 import MiddleTabs from "./MiddleTabs";
+import noImage from '@/assets/no_Image.png';
 
 const AccommodationDetailPage = () => {
     const location = useLocation();
@@ -54,7 +55,7 @@ const AccommodationDetailPage = () => {
                     <Grid>
                         <Grid container >
                             <Grid xs={6} sx={{ padding: "20px" }}>
-                                <img src={selectedRegion[0]?.firstimage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+                                <img src={selectedRegion[0]?.firstimage ? selectedRegion[0]?.firstimage : noImage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
                             </Grid>
                             <Grid xs={6} sx={{ padding: "20px" }}>
                                 <DetailMap 

@@ -6,6 +6,7 @@ import axios from "axios";
 import CLoading from "../../components/Loading/CLoading";
 import useSearch from "../../store/search/useSearch";
 import MiddleTabs from "./components/MiddleTabs";
+import noImage from '@/assets/no_Image.png';
 
 const FestivalDetailPage = () => {
     const location = useLocation();
@@ -48,7 +49,7 @@ const FestivalDetailPage = () => {
                     <Grid>
                         <Grid container >
                             <Grid xs={6} sx={{ padding: "20px" }}>
-                                <img src={selectedRegion[0]?.firstimage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+                                <img src={selectedRegion[0]?.firstimage ? selectedRegion[0]?.firstimage : noImage} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
                             </Grid>
                             <Grid xs={6} sx={{ padding: "20px" }}>
                                 <DetailMap 

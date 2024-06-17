@@ -15,7 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Select, FormControl, InputLabel, Button } from '@mui/material';
+import { Select, FormControl, InputLabel, Button, Tooltip } from '@mui/material';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import useSearch from '../store/search/useSearch';
@@ -141,6 +141,10 @@ export default function Nav({
       console.error('[Logout Error] :', error);
     });
   };
+
+  const handleLinkMyPage = () => {
+    navigate('/mypage');
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -326,18 +330,21 @@ export default function Nav({
               <Button variant='contained' color='primary' onClick={handleLogin}>로그인</Button>
             ) : (
               <Box sx={{ display:"flex", alignItems: "center" }}>
-                <IconButton
+                <Tooltip title="내 정보">
+                  <IconButton
                     size="large"
                     edge="end"
                     aria-label="account of current user"
                     aria-controls={menuId}
                     aria-haspopup="true"
                     // onClick={handleProfileMenuOpen}
-                    color="inherit"
+                    onClick={handleLinkMyPage}
+                    color="warning"
                     sx={{ marginRight:"5px" }}
                   >
                     <AccountCircle />
                   </IconButton>
+                </Tooltip>
                 <Box sx={{ display: "flex",flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
                   <Typography sx={{ marginRight: "10px" }}>{userData?.userName}님 </Typography>
                   <Typography sx={{ marginRight: "10px", color: "yellow", fontSize:"13px" }}>{userData?.userNickname}</Typography>
