@@ -20,9 +20,11 @@ const CreateReview = ({
     handleClickOpen, 
     handleClose,
 }) => {
+    const [loading, setLoading] = useState(false);
     const location = useLocation();
     const [locationId, setLocationId] = useState("");
     const [nickname, setNickname] = useState("");
+    const [userId, setUserId] = useState("");
     const [rating, setRating] = useState(1);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -37,13 +39,9 @@ const CreateReview = ({
         const contentTitle = params.get('title');
         setLocationId(contentId);
         setLocationTitle(contentTitle);
+        setUserId(userData.userId)
         setNickname(userData.userNickname);
     }, [])
-
-    useEffect(() => {
-        console.log(locationTitle, "locationTitle")
-        console.log(userData, "userData")
-    }, [locationTitle])
 
     const descriptionElementRef = useRef(null);
     useEffect(() => {
@@ -57,8 +55,10 @@ const CreateReview = ({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const reviewData = {
             locationId,
+            userId,
             nickname,
             rating,
             title,
@@ -67,7 +67,7 @@ const CreateReview = ({
         };
 
         try {
-            const response = await axios.post("/api/reviews/create", reviewData);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/reviews/create`, reviewData);
             if (response.data.success) {
                 alert("Review submitted successfully!");
                 handleClose();
@@ -84,6 +84,8 @@ const CreateReview = ({
         } catch (error) {
             console.error("An error occurred while submitting the review: ", error);
             alert("An error occurred while submitting the review.");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -107,58 +109,64 @@ const CreateReview = ({
                         ref={descriptionElementRef}
                         tabIndex={-1}
                     >
-                        <StyledForm onSubmit={handleSubmit}>
-                            <StyledRating
-                                name="rating"
-                                value={rating}
-                                onChange={(e, newValue) => setRating(newValue)}
-                                precision={1}
-                                max={5}
-                                size="large"
-                                required
-                            />
-                            <input
-                                type='hidden'
-                                name='locationId'
-                                value={locationId}
-                                fullWidth
-                                required
-                            />
-                            <input
-                                type='hidden'
-                                name='nickname'
-                                value={nickname}
-                                fullWidth
-                                required
-                            />
-                            <TextField
-                                label="제목"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                fullWidth
-                                margin="normal"
-                                required
-                            />
-                            <TextField
-                                label="내용"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                fullWidth
-                                required
-                                multiline
-                                rows={10}
-                            />
-                            <input
-                                type="file"
-                                multiple
-                                onChange={handleImageChange}
-                                style={{ marginTop: '20px' }}
-                            />
-                            <DialogActions>
-                                <Button onClick={handleClose}>취소</Button>
-                                <Button type="submit">작성</Button>
-                            </DialogActions>
-                        </StyledForm>
+                        {loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <>
+                                <StyledForm onSubmit={handleSubmit}>
+                                    <StyledRating
+                                        name="rating"
+                                        value={rating}
+                                        onChange={(e, newValue) => setRating(newValue)}
+                                        precision={1}
+                                        max={5}
+                                        size="large"
+                                        required
+                                    />
+                                    <input
+                                        type='hidden'
+                                        name='locationId'
+                                        value={locationId}
+                                        fullWidth
+                                        required
+                                    />
+                                    <input
+                                        type='hidden'
+                                        name='nickname'
+                                        value={nickname}
+                                        fullWidth
+                                        required
+                                    />
+                                    <TextField
+                                        label="제목"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        fullWidth
+                                        margin="normal"
+                                        required
+                                    />
+                                    <TextField
+                                        label="내용"
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        fullWidth
+                                        required
+                                        multiline
+                                        rows={10}
+                                    />
+                                    <input
+                                        type="file"
+                                        multiple
+                                        onChange={handleImageChange}
+                                        style={{ marginTop: '20px' }}
+                                    />
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>취소</Button>
+                                        <Button type="submit">작성</Button>
+                                    </DialogActions>
+                                </StyledForm>
+                            </>
+                        )}
                     </DialogContentText>
                 </DialogContent>
             </Dialog>
