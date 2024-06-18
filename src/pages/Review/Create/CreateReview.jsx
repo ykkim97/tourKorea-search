@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import useLoginUser from '../../../store/Login/useLoginUser';
+import { toast } from 'react-toastify';
 
 const CreateReview = ({ 
     openReviewModal, 
@@ -69,7 +70,7 @@ const CreateReview = ({
         try {
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/api/reviews/create`, reviewData);
             if (response.data.success) {
-                alert("Review submitted successfully!");
+                toast("리뷰가 작성되었습니다!");
                 handleClose();
                 // 폼 초기화
                 setLocationId("");
@@ -79,11 +80,11 @@ const CreateReview = ({
                 setDescription("");
                 setImages([]);
             } else {
-                alert("Failed to submit review: " + response.data.message);
+                toast("[리뷰 쓰기 실패] : " + response.data.message);
             }
         } catch (error) {
             console.error("An error occurred while submitting the review: ", error);
-            alert("An error occurred while submitting the review.");
+            toast("[데이터 전송 실패]");
         } finally {
             setLoading(false);
         }
