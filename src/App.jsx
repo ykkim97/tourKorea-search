@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer';
 import Home from './Home';
-import axios from "axios";
 
 function App() {
   // totalCount of datas

@@ -26,6 +26,7 @@ import LoginPage from "./pages/Login/LoginPage";
 import SignUpPage from "./pages/SignUp/SignUpPage";
 import MyPage from "./pages/MyPage/MyPage";
 import UpdateMyInfo from "./pages/MyPage/update/UpdateMyInfo";
+import CreateReivew from "./pages/Review/Create/CreateReview";
 
 const drawerWidth = 240;
 
@@ -175,6 +176,11 @@ export default function Home ({
                                 path='/accommodation/detail/:id' 
                                 element={ <AccommodationDetailPage /> } 
                             />
+
+                            {/* <Route 
+                                path='/review' 
+                                element={ <CreateReivew /> } 
+                            /> */}
                         </Routes>
                     </Grid>
                 </Box>

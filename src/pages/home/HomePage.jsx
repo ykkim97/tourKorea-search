@@ -1,8 +1,9 @@
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, Container, Grid, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RegionCard from "./components/RegionCard";
 import axios from "axios";
 import useSearch from "../../store/search/useSearch";
+import styled from "styled-components";
 
 function HomePage({
     totalLength,
@@ -29,6 +30,7 @@ function HomePage({
 
     return (
         <>
+            {/* <MyPageContainer>필터</MyPageContainer> */}
             {searchRegion && searchRegion.map((item) => (
                 <Grid item key={item.contentid} xs={12} sm={6} md={4} lg={3}>
                     <RegionCard item={item} />
@@ -46,3 +48,10 @@ function HomePage({
 }
 
 export default HomePage;
+
+// const MyPageContainer = styled(Container)({
+//     paddingLeft: '20px',
+//     marginTop : '20px',
+//     padding : "20px 0 20px 0",
+//     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+// })
