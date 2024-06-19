@@ -20,6 +20,7 @@ const CreateReview = ({
     setScroll,
     handleClickOpen, 
     handleClose,
+    fetchReviews,
 }) => {
     const [loading, setLoading] = useState(false);
     const location = useLocation();
@@ -72,7 +73,8 @@ const CreateReview = ({
             if (response.data.success) {
                 toast("리뷰가 작성되었습니다!");
                 handleClose();
-                // 폼 초기화
+                fetchReviews();
+                // form data reset
                 setLocationId("");
                 setNickname("");
                 setRating(1);

@@ -1,9 +1,11 @@
 import { CardContent, Typography, CardActions, Box, Button } from "@mui/material";
 import Card from '@mui/material/Card';
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import useLoginUser from "../../../store/Login/useLoginUser";
 import { useNavigate } from "react-router-dom";
 import CreateReview from "../../Review/Create/CreateReview";
+import StarIcon from "@mui/icons-material/Star";
 
 const rows = [
     { userId : 'qwer9877', title : "괜찮은 여행지", stars: 5, desc: "Very Good!"  },
@@ -32,37 +34,63 @@ const Review = () => {
             alert('로그인이 필요한 서비스입니다.');
             navigate('/login');
         } else {
-            // handleClickOpen('paper');
             setOpenReviewModal(true);
             setScroll('paper')
-            // navigate('/review');
         }
     }
 
+    const [reviews, setReviews] = useState([]);
+
+    const fetchReviews = async () => {
+        const params = new URLSearchParams(location.search);
+        const contentId = params.get('contentId');
+
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/reviews/list`, 
+                { params : { contentId : contentId }}
+            );
+            if (response.data.success) {
+                setReviews(response.data.reviews);
+            } else {
+                alert("Failed to fetch reviews: " + response.data.message);
+            }
+        } catch (error) {
+            console.error("An error occurred while fetching reviews: ", error);
+            // alert("An error occurred while fetching reviews.");
+        }
+    };
+
     useEffect(() => {
-        console.log(openReviewModal, "openReviewModal")
-    }, [openReviewModal])
+        fetchReviews();
+    }, []);
 
     return (
         <Box sx={{ minWidth: 275 }}>
-            {rows?.map((row) => (
-                <Card variant="outlined">
-                    <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            ⭐⭐⭐⭐
-                        </Typography>
-                        <Typography variant="h6" component="div">
-                            {row.title}
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            {row.userId}
-                        </Typography>
-                        <Typography variant="body2">
-                            {row.desc}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            ))}
+            {reviews.length == 0 ? (
+                <Typography>등록된 리뷰가 없습니다.</Typography>
+            ) : (
+                reviews?.map((review) => (
+                    <Card variant="outlined" key={review?._id}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {Array.from({ length: review.rating }, (_, i) => (
+                                    <StarIcon sx={{ color : "#f2e60c" }} key={i} />
+                                ))}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                {review.title}
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                {review.nickname}
+                            </Typography>
+                            <Typography variant="body2">
+                                {review.description}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                ))
+            )}
+
             <Box sx={{ textAlign: "right", pt: 2 }}>
                 <Button variant="contained" color="primary" onClick={handleAddReview}>리뷰 작성하기</Button>
             </Box>
@@ -75,6 +103,7 @@ const Review = () => {
                     setScroll={setScroll} 
                     handleClickOpen={handleClickOpen}  
                     handleClose={handleClose} 
+                    fetchReviews={fetchReviews}
                 />
             ) : null}
         </Box>
