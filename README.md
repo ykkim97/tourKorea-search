@@ -4,6 +4,10 @@
 
 ### 개발인원 : 1인 개발
 
+### 배포페이지 : https://tripstory.netlify.app/
+ - FrontEnd : Netlify
+ - BackEnd : CloudType
+
 ### 활용 API : 한국관광공사_국문 관광정보 서비스_GW
 
 https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578
