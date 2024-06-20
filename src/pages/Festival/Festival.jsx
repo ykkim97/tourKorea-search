@@ -20,7 +20,7 @@ const Festival = ({
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const fetchFestival = async () => {
-            const response = await axios.get('http://localhost:7516/api/festival', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/festival`, {
                 params : { startDate : '20170901', pageNo: currentPage }
             });
             setFestivalData(response.data.result);

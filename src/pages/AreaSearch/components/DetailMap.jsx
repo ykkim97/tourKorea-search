@@ -24,7 +24,6 @@ const DetailMap = ({
         marker.setMap(map);
     }, [mapX, mapY])
     
-
     return (
         <div id="map" style={{
             width: "100%", height: "100%", objectFit: "cover"

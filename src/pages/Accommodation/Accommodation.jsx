@@ -18,7 +18,7 @@ const Accommodation = ({
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const fetchAccommodation = async () => {
-            const response = await axios.get('http://localhost:7516/api/accommodation', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/accommodation`, {
                 params : { pageNo: currentPage }
             });
             setAccommodationData(response.data.result);

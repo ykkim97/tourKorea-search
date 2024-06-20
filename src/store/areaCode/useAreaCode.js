@@ -7,7 +7,7 @@ const useAreaCode = create((set) => ({
     setAreaCodeData: (areaCodeData) => set({ areaCodeData }),
 
     fetchAreaCode: async () => {
-        const response = await axios('http://localhost:7516/api/areaCode', {
+        const response = await axios(`${import.meta.env.VITE_BACKEND_API_URL}/api/areaCode`, {
             params : { pageNo : 1 }
         })
         set({ areaCodeData: response.data });

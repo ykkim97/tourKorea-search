@@ -222,7 +222,7 @@ export default function Nav({
 
   useEffect(() => {
     const fetchTourData = async () => {
-      const response = await axios.get('http://localhost:7516/api/search', {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/search`, {
         params : { keyword : region }
       });
 
@@ -234,7 +234,7 @@ export default function Nav({
 
   useEffect(() => {
     const fetchAreaBasedData = async () => {
-      const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/areaBasedSearch`, {
         params : { areaCode : areaValue }
       });
 

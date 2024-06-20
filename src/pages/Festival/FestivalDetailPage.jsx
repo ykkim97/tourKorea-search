@@ -21,7 +21,7 @@ const FestivalDetailPage = () => {
         const contentId = params.get('contentId');
         const contenttypeId = params.get('contenttypeid');
         const fetchDetail = async () => {
-            const response = await axios.get('http://localhost:7516/api/festival/detail', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/festival/detail`, {
                 params : { contentid : contentId, contenttypeid: contenttypeId }
             });
             setSelectedRegion(response.data);

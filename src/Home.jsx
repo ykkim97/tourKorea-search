@@ -27,6 +27,7 @@ import SignUpPage from "./pages/SignUp/SignUpPage";
 import MyPage from "./pages/MyPage/MyPage";
 import UpdateMyInfo from "./pages/MyPage/update/UpdateMyInfo";
 import CreateReivew from "./pages/Review/Create/CreateReview";
+import MapSearchPage from "./pages/MapSearch/MapSearchPage";
 
 const drawerWidth = 240;
 
@@ -86,7 +87,9 @@ export default function Home ({
                                                         text === '숙박정보' ? (
                                                             <ListItemText primary={text} onClick={() => naviagate(`/accommodation`)} />
                                                         ) : (
-                                                            <ListItemText primary={text} onClick={() => naviagate(`/`)} />
+                                                            text === '지도' ? (
+                                                                <ListItemText primary={text} onClick={() => naviagate(`/mapSearch`)} />
+                                                            ) : <ListItemText primary={text} onClick={() => naviagate(`/`)} />
                                                         )
                                                     )
                                                 )
@@ -177,10 +180,10 @@ export default function Home ({
                                 element={ <AccommodationDetailPage /> } 
                             />
 
-                            {/* <Route 
-                                path='/review' 
-                                element={ <CreateReivew /> } 
-                            /> */}
+                            <Route 
+                                path='/mapSearch' 
+                                element={ <MapSearchPage /> } 
+                            />
                         </Routes>
                     </Grid>
                 </Box>

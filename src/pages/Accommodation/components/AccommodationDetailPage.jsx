@@ -29,7 +29,7 @@ const AccommodationDetailPage = () => {
         const contentId = params.get('contentId');
         const contenttypeId = params.get('contenttypeid');
         const fetchDetail = async () => {
-            const response = await axios.get('http://localhost:7516/api/accommodation/detail', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/accommodation/detail`, {
                 params : { contentid : contentId, contenttypeid: contenttypeId }
             });
             setSelectedRegion(response.data);

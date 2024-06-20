@@ -20,7 +20,7 @@ function AreaSearch({
 
     useEffect(() => {
         const fetchTourData = async () => {
-            const response = await axios.get('http://localhost:7516/api/areaBasedSearch', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/areaBasedSearch`, {
                 params: { areaCode: areaValue, pageNo: currentPage }
             });
             setSearchAreaBasedData(response.data.result);

@@ -19,7 +19,7 @@ function HomePage({
 
     useEffect(() => {
         const fetchTourData = async () => {
-            const response = await axios.get('http://localhost:7516/api/search', {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/search`, {
                 params: { keyword: region, pageNo: currentPage }
             });
             setSearchRegion(response.data.result);
