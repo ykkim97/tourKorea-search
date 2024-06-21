@@ -246,6 +246,7 @@ export default function Nav({
 
   useEffect(() => {
     const token = getCookie('x_auth');
+    console.log(token, "-authtk");
     setUserToken(token);
     if (token) {
       axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/users/auth`, {
