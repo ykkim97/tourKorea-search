@@ -67,7 +67,7 @@ const Review = () => {
     return (
         <Box sx={{ minWidth: 275 }}>
             {reviews.length == 0 ? (
-                <Typography p={3}>등록된 리뷰가 없습니다.</Typography>
+                <Typography p={3}>등록된 리뷰가 없어요! 😮</Typography>
             ) : (
                 reviews?.map((review) => (
                     <Card variant="outlined" key={review?._id}>

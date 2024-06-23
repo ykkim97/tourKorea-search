@@ -65,7 +65,7 @@ const Review = () => {
     }, []);
 
     return (
-        <Box sx={{ minWidth: 275 }}>
+        <Box>
             {reviews.length == 0 ? (
                 <Typography p={3}>등록된 리뷰가 없어요! 😮</Typography>
             ) : (

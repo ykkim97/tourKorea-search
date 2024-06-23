@@ -257,6 +257,7 @@ export default function Nav({
       .then(response => {
         console.log('인증 확인:', response.data);
         setUserData(response.data);
+        navigate(-1);
       })
       .catch(error => {
         console.error('인증 오류:', error);
