@@ -5,7 +5,7 @@
 ### 개발인원 : 1인 개발
 FrontEnd 및 BackEnd 모두 구현
 
-### 배포페이지 : https://tripstory.netlify.app/ (현재 버그가 있을 수 있습니다.)
+### 배포페이지 : 배포 일시중단
  - FrontEnd : Netlify
  - BackEnd : CloudType
 
